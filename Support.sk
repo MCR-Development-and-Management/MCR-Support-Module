@@ -1,1 +1,26 @@
-d
+options:
+	module:Support Module
+	modulever: 1.0
+
+on load:
+	if {mineplex.modulesapi.online} is true:
+		loop {mineplex::modules::*}:
+			if loop-value is "{@module}":
+				delete  {mineplex::modules::%loop-index%}
+		add "{@module}" to {mineplex::modules::*}
+	else:
+		broadcast "&9MCR Modules> &7Error when enabling &e{@module} {@modulever}&7: MCR is not loaded or not updated to &eMCR 2.2&7!"
+on unload:
+	remove "{@module}" from {mineplex::modules::*}
+
+script options:
+	$ use permissions
+
+on load:
+	broadcast "&9Support> &7Enabled Supportv1.0"
+
+command /check:
+	permission: mineplex.support
+	permission message: &9Permissions> &7You do not have permission to do that.
+	trigger:
+		send "We are working on this, please be patient"
